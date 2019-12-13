@@ -5,6 +5,7 @@ $(document).ready(readyNow);
 function readyNow() {
     console.log('JQUERY READY');
     $('#addEmployeeButton').on('click', addEmployee);
+    $('#employeeList').on('click', '.deleteButton', deleteEmployee);
 }
 
 function addEmployee(){
@@ -15,9 +16,10 @@ function addEmployee(){
     let jobTitle = $('#jobTitleIn').val();
     let annualSalary = $('#annualSalaryIn').val();
     
+    annualSalary = Number(annualSalary);
     console.log(firstName, lastName, idNum, jobTitle, annualSalary);
 
-    $('#workerList').append(
+    $('#employeeList').append(
         `
         <tr>
             <td>${firstName}</td>
@@ -34,4 +36,9 @@ function addEmployee(){
     $('#idNumIn').val('');
     $('#jobTitleIn').val('');
     $('#annualSalaryIn').val('');
+}
+
+function deleteEmployee() {
+    console.log('Delete Employee Button Clicked')
+    $(this).closest('tr').remove();
 }
