@@ -1,0 +1,7 @@
+.positive {
+    justify-content: right;
+}
+.negative {
+    justify-content: right;
+    background-color: red;
+}
