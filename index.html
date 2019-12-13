@@ -12,7 +12,30 @@
 </head>
 <body>
     <header >
-        <h1 class="jumbotron">Mic Check 1212 </h1 
+        <h1 class="jumbotron">Salary Calculator</h1> 
     </header>
-</body>
+    <main>
+        <input type="string" placeholder="First Name" id="firstNameIn">
+        <input type="string" placeholder="Last Name" id="lastNameIn">
+        <input type="number" placeholder="ID Number" id="idNumIn">
+        <input type="string" placeholder="Job Title" id="jobTitleIn">
+        <input type="number" placeholder="Annual Salary" id="annualSalaryIn">
+        <button id="addEmployeeButton" class="btn btn-success">Add Employee</button>
+    </main>
+        <h3>Employee List</h3> 
+        <table>
+        <thead class="table table-striped">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>ID Number</th>
+                <th>Job Title</th>
+                <th>Annual Salary</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id = "workerList">
+
+        </tbody>
+    </table>
 </html>
