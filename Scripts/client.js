@@ -6,8 +6,8 @@ function readyNow() {
     console.log('JQUERY READY');
     $('#addEmployeeButton').on('click', addEmployee);
     $('#employeeList').on('click', '.deleteButton', deleteEmployee);
+    $('#employeeList').on('click', '.deleteButton', removeEmployeeFromList);
 }
-
 
 let employeeListArray = [];
 
@@ -17,7 +17,7 @@ function addEmployee() {
     let idNum = Number($('#idNumIn').val());
     let jobTitle = $('#jobTitleIn').val();
     let annualSalary = Number($('#annualSalaryIn').val());
-    
+
     console.log('Employee Add Button Clicked')
     if (
         firstName.length === 0 ||
@@ -32,7 +32,7 @@ function addEmployee() {
             <tr>
                 <td>${firstName}</td>
                 <td>${lastName}</td>
-                <td>${idNum}</td>
+                <td class="employeeIDNUMBER">${idNum}</td>
                 <td>${jobTitle}</td>
                 <td>${annualSalary}</td>
                 <td><button class="deleteButton btn btn-danger">DELETE</button</td>
@@ -40,9 +40,9 @@ function addEmployee() {
             `
         )
     }
-    console.log(firstName, lastName, idNum, jobTitle, annualSalary);
+    // console.log(firstName, lastName, idNum, jobTitle, annualSalary);
     makeEmployeeArray(firstName, lastName, idNum, jobTitle, annualSalary);
-    showSalary();
+    showSalary(annualSalary);
 
     $('#firstNameIn').val('');
     $('#lastNameIn').val('');
@@ -52,31 +52,42 @@ function addEmployee() {
 }
 
 function deleteEmployee() {
-    console.log('Delete Employee Button Clicked')
     $(this).closest('tr').remove();
 }
+function removeEmployeeFromList() {
+    console.log('Ready to remove employee from list');
+    let employeeIdGet = Number($(this).closest('tr').find('.employeeIDNUMBER').text());
+    for (var i = 0; i < employeeListArray.length; i++) {
+        if (employeeListArray[i].IDnum === employeeIdGet) {
+            console.log('ready to delete');
+            employeeListArray.splice(i, 1);
+        }
+    }
+    console.log(employeeListArray);
+    showSalary();
+}
 
-function makeEmployeeArray(fname, lname, inum, jtitle, asalary)  {
-    const oneEmployee = {
-    firstname: fname,
-    lastname: lname,
-    IDnum: inum,
-    jobtitle: jtitle ,
-    annualSalary: asalary
+function makeEmployeeArray(fname, lname, inum, jtitle, asalary) {
+    const oneEmployee =
+    {
+        firstname: fname,
+        lastname: lname,
+        IDnum: inum,
+        jobtitle: jtitle,
+        annualSalary: asalary
     };
     employeeListArray.push(oneEmployee);
-    console.log(employeeListArray);
 }
 function showSalary() {
     let totalSalary = 0;
-    for (let i =0; i < employeeListArray.length; i++) {
-        totalSalary +=employeeListArray[i].annualSalary;
-    } let counter = $( '#monthlySalaryOut');
+    for (let i = 0; i < employeeListArray.length; i++) {
+        totalSalary += employeeListArray[i].annualSalary;
+    } let counter = $('#monthlySalaryOut');
     counter.empty();
     let monthlySalary = Math.round(totalSalary / 12);
     if (monthlySalary > 20000) {
-    counter.append(`<h4 class="negative">Monthly Salary: $${monthlySalary}</h4>`)
-}   else {
-    counter.append(`<h4 class="positive">Monthly Salary: $${monthlySalary}</h4>`)
-}
+        counter.append(`<h4 class="negative">Monthly Salary: $${monthlySalary}</h4>`)
+    } else {
+        counter.append(`<h4 class="positive">Monthly Salary: $${monthlySalary}</h4>`)
+    }
 }

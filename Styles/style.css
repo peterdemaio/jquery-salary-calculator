@@ -1,7 +1,10 @@
 .positive {
-    justify-content: right;
+    background-color: blue;
+    text-align: right;
+    color: white
 }
 .negative {
-    justify-content: right;
+    text-align: right;
     background-color: red;
+    color: white;
 }
