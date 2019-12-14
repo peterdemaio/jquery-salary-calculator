@@ -10,6 +10,7 @@ Go to (https://github.com/peterdemaio/jquery-salary-calculator) to save a copy o
 
 Add employee data to the input fields, click the ADD EMPLOYEE button, and notice the employees in the table. To remove an employee, click the DELETE button next to the employee you wish to remove. The total salary will be displayed in the bottom corner, updated each time an employee is added or deleted. If the salary monthly salary is over $20,000, the background will change to red.
 
+![image](/Styles/Screenshot.jpg)
 
 
 ## Contributing
