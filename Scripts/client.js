@@ -1,24 +1,29 @@
 console.log('JS LOADED');
 
 $(document).ready(readyNow);
-
+// This function records the click events on the page and calls the corresponding functions. When add employee is clicked, one function runs. Two functions run on the delete button click.
 function readyNow() {
     console.log('JQUERY READY');
+    // this line runs the addEmplyoyee function when the button is clicked;
     $('#addEmployeeButton').on('click', addEmployee);
+    // this function deletes an employee from the HTML;
     $('#employeeList').on('click', '.deleteButton', deleteEmployee);
+    // This function removes an employee from the employee array, updating the total monthly salary
     $('#employeeList').on('click', '.deleteButton', removeEmployeeFromList);
 }
 
+// Used to add salaries and delete employees.
 let employeeListArray = [];
 
+// Appends employees to the DOM
 function addEmployee() {
+    // Get values from the user
     let firstName = $('#firstNameIn').val();
     let lastName = $('#lastNameIn').val();
     let idNum = Number($('#idNumIn').val());
     let jobTitle = $('#jobTitleIn').val();
     let annualSalary = Number($('#annualSalaryIn').val());
-
-    console.log('Employee Add Button Clicked')
+    // If fields are missing the DOM will not allow the user to add an employee
     if (
         firstName.length === 0 ||
         lastName.length === 0 ||
@@ -27,6 +32,7 @@ function addEmployee() {
         annualSalary === 0) {
         alert('Some Information is missing, please try again.')
     } else {
+        // Adds the employee to the table 
         $('#employeeList').append(
             `
             <tr>
@@ -40,20 +46,33 @@ function addEmployee() {
             `
         )
     }
-    // console.log(firstName, lastName, idNum, jobTitle, annualSalary);
+
     makeEmployeeArray(firstName, lastName, idNum, jobTitle, annualSalary);
     showSalary(annualSalary);
-
+    // empties the input fields
     $('#firstNameIn').val('');
     $('#lastNameIn').val('');
     $('#idNumIn').val('');
     $('#jobTitleIn').val('');
     $('#annualSalaryIn').val('');
 }
-
+// This function pushes a new employee into the array for later use.
+function makeEmployeeArray(fname, lname, inum, jtitle, asalary) {
+    const oneEmployee =
+    {
+        firstname: fname,
+        lastname: lname,
+        IDnum: inum,
+        jobtitle: jtitle,
+        annualSalary: asalary
+    };
+    employeeListArray.push(oneEmployee);
+}
+// Deletes the table row of the employee delete button clicked
 function deleteEmployee() {
     $(this).closest('tr').remove();
 }
+// this function removes the employee from the array, which then updates the salary total displayed on the DOM
 function removeEmployeeFromList() {
     console.log('Ready to remove employee from list');
     let employeeIdGet = Number($(this).closest('tr').find('.employeeIDNUMBER').text());
@@ -67,17 +86,7 @@ function removeEmployeeFromList() {
     showSalary();
 }
 
-function makeEmployeeArray(fname, lname, inum, jtitle, asalary) {
-    const oneEmployee =
-    {
-        firstname: fname,
-        lastname: lname,
-        IDnum: inum,
-        jobtitle: jtitle,
-        annualSalary: asalary
-    };
-    employeeListArray.push(oneEmployee);
-}
+// This function loops through the employee array and adds up the annual salary data. If the total is greater than 20,000, the background turns red.
 function showSalary() {
     let totalSalary = 0;
     for (let i = 0; i < employeeListArray.length; i++) {
