@@ -31,6 +31,8 @@ function addEmployee() {
         jobTitle.length === 0 ||
         annualSalary === 0) {
         alert('Some Information is missing, please try again.')
+
+    return;
     } else {
         // Adds the employee to the table 
         $('#employeeList').append(
